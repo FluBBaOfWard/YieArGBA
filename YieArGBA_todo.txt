@@ -1,0 +1,20 @@
+YieArGBA To do
+--------------
+
+
+
+Misc:
+
+Graphic:
+
+CPU:
+	Optimise M6809.
+	Timing?
+
+GUI:
+
+Sound:
+	Update more often?
+
+Games:
+
