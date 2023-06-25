@@ -2,8 +2,9 @@ YieArGBA revision history
 -=-=-=-=-=-=-=-=-=-=-=-=-
 
 
-V0.1.6 - 2022-08-24 (FluBBa)
-	Cleaned up source.
+V0.1.6 - 2022-10-08 (FluBBa)
+	Added new debug menu.
+	Better menu traversing.
 
 V0.1.5 - 2021-03-17 (FluBBa)
 	Added load/save state.
@@ -15,5 +16,5 @@ V0.1.1 - 2020-06-08 (FluBBa)
 	Code cleanup.
 
 V0.1.0 - 2019-08-01 (FluBBa)
-   Initial version, plays Yie Ar.
+	Initial version, plays Yie Ar.
 

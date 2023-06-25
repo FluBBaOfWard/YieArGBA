@@ -10,7 +10,7 @@
 #include "Emubase.h"
 #include "Main.h"
 #include "Shared/EmuMenu.h"
-#include "GUI.h"
+#include "Gui.h"
 #include "YieAr.h"
 #include "Cart.h"
 #include "Gfx.h"
@@ -22,17 +22,6 @@ static const char *const settingName = "settings.cfg";
 ConfigData cfg;
 
 #define GAMECOUNT (2)
-static const char *const gameNames[GAMECOUNT] = {"yiear","yiear2"};
-static const char *const gameZipNames[GAMECOUNT] = {"yiear.zip","yiear2.zip"};
-static const int fileCount[GAMECOUNT] = {10,10};
-static const char *const romFilenames[GAMECOUNT][10] = {
-	{"407_i08.10d","407_i07.8d", "407_c01.6h","407_c02.7h", "407_d05.16h","407_d06.17h","407_d03.14h","407_d04.15h", "407c10.1g", "407_c09.8b"},
-	{"407_g08.10d","407_g07.8d", "407_c01.6h","407_c02.7h", "407_d05.16h","407_d06.17h","407_d03.14h","407_d04.15h", "407c10.1g", "407_c09.8b"}
-};
-static const int romFilesizes[GAMECOUNT][10] = {
-	{0x4000,0x4000, 0x2000,0x2000, 0x4000,0x4000,0x4000,0x4000, 0x20, 0x2000},
-	{0x4000,0x4000, 0x2000,0x2000, 0x4000,0x4000,0x4000,0x4000, 0x20, 0x2000}
-};
 
 //---------------------------------------------------------------------------------
 int loadSettings() {
