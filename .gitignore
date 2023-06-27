@@ -3,5 +3,6 @@ include/yiear
 *.elf
 *.gba
 *.sav
+*.zip
 YieArGBA.xcodeproj/project.xcworkspace/xcuserdata
 YieArGBA.xcodeproj/xcuserdata
