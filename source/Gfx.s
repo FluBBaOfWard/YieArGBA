@@ -5,24 +5,25 @@
 #include "ARM6809/ARM6809.i"
 #include "YieArVideo/YieArVideo.i"
 
-	.global gfxInit
-	.global gfxReset
-	.global paletteInit
-	.global paletteTxAll
-	.global refreshGfx
-	.global EMUPALBUFF
-	.global endFrame
 	.global gfxState
 	.global gFlicker
 	.global gTwitch
 	.global gScaling
 	.global gGfxMask
-	.global vblIrqHandler
 	.global yStart
+	.global EMUPALBUFF
 
 	.global yieAr_0
 	.global yieAr_0W
 	.global emuRAM
+
+	.global gfxInit
+	.global gfxReset
+	.global paletteInit
+	.global paletteTxAll
+	.global refreshGfx
+	.global endFrame
+	.global vblIrqHandler
 
 
 	.syntax unified

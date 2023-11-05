@@ -6,6 +6,9 @@
 
 #define MIX_LEN (528)
 
+	.global SN76496_0
+	.extern pauseEmulation
+
 	.global soundInit
 	.global soundReset
 	.global vblSound1
@@ -15,9 +18,6 @@
 	.global SN_0_W
 	.global VLM_R
 	.global VLM_W
-
-	.global SN76496_0
-	.extern pauseEmulation
 
 
 	.syntax unified

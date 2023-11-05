@@ -5,9 +5,6 @@
 #include "ARM6809/ARM6809mac.h"
 #include "YieArVideo/YieArVideo.i"
 
-	.global machineInit
-	.global loadCart
-	.global m6809Mapper
 	.global emuFlags
 	.global romNum
 	.global cartFlags
@@ -15,10 +12,12 @@
 	.global vromBase0
 	.global vromBase1
 	.global promBase
-
 	.global ROM_Space
 	.global testState
 
+	.global machineInit
+	.global loadCart
+	.global m6809Mapper
 
 
 	.syntax unified
