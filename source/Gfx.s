@@ -319,7 +319,12 @@ windowTop:
 	.byte 0
 	.byte 0,0
 
-	.section .sbss
+#ifdef GBA
+	.section .sbss				;@ For the GBA
+#else
+	.section .bss
+#endif
+	.align 2
 OAM_BUFFER1:
 	.space 0x400
 OAM_BUFFER2:
