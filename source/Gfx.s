@@ -47,7 +47,8 @@ gfxInit:					;@ Called from machineInit
 	ldrb r0,[r0]
 	bl paletteInit				;@ Do palette mapping
 
-	bl yieArInit
+	ldr r0,=CHR_DECODE
+	bl yiearInit
 
 	ldmfd sp!,{pc}
 
@@ -66,7 +67,7 @@ gfxReset:					;@ Called with CPU reset
 	ldr r0,=m6809SetNMIPin
 	ldr r1,=m6809SetIRQPin
 	ldr r2,=emuRAM
-	bl yieArReset0
+	bl yiearReset0
 	bl bgInit
 
 	bl paletteTxAll				;@ Transfer palette
@@ -80,7 +81,7 @@ bgInit:					;@ BG tiles
 	ldr r0,=BG_GFX+0x8000		;@ r0 = GBA/NDS BG tileset
 	ldr r1,=vromBase0
 	ldr r1,[r1]					;@ r1 = even bytes
-	bl convertTilesYieAr
+	bl yiearConvertTiles
 
 	ldr r0,=vromBase1
 	ldr r0,[r0]					;@ r1 = even bytes
@@ -170,10 +171,10 @@ noMap3:
 	ldmfd sp!,{r4-r5}
 	bx lr
 ;@----------------------------------------------------------------------------
-yieArReset0:			;@ r0=periodicIrqFunc, r1=frameIrqFunc
+yiearReset0:			;@ r0=periodicIrqFunc, r1=frameIrqFunc
 ;@----------------------------------------------------------------------------
 	ldr koptr,=yieAr_0
-	b yieArReset
+	b yiearReset
 
 	.section .iwram, "ax", %progbits	;@ For the GBA
 ;@----------------------------------------------------------------------------
@@ -268,9 +269,9 @@ endFrame:	;@ Called just before screen end (~line 240)	(r0-r2 safe to use)
 	stmfd sp!,{r3,lr}
 
 	mov r0,#BG_GFX
-	bl convertTileMapYieAr
+	bl yiearConvertTileMap
 	ldr r0,tmpOamBuffer
-	bl convertSpritesYieAr
+	bl yiearConvertSprites
 ;@--------------------------
 
 	ldr r0,dmaOamBuffer
@@ -300,7 +301,7 @@ yieAr_0W:					;@ I/O write  (0x4000)
 	stmfd sp!,{addy,lr}
 	mov r1,addy
 	adr koptr,yieAr_0
-	bl yieAr_W
+	bl yiearW
 	ldmfd sp!,{addy,pc}
 
 yieAr_0:
@@ -325,6 +326,8 @@ windowTop:
 	.section .bss
 #endif
 	.align 2
+CHR_DECODE:
+	.space 0x400
 OAM_BUFFER1:
 	.space 0x400
 OAM_BUFFER2:
