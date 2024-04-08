@@ -64,8 +64,8 @@ gfxReset:					;@ Called with CPU reset
 	mov r1,#5					;@ 5*4
 	bl memclr_					;@ Clear GFX regs
 
-	ldr r0,=m6809SetNMIPin
-	ldr r1,=m6809SetIRQPin
+	ldr r0,=m6809SetNMIPinCurrentCpu
+	ldr r1,=m6809SetIRQPinCurrentCpu
 	ldr r2,=emuRAM
 	bl yiearReset0
 	bl bgInit
