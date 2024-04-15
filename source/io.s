@@ -14,8 +14,8 @@
 
 	.global ioReset
 	.global refreshEMUjoypads
-	.global IO_R
-	.global IO_W
+	.global YieArIO_R
+	.global YieArIO_W
 
 	.syntax unified
 	.arm
@@ -134,7 +134,7 @@ Input5_R:
 	.align 2
 #endif
 ;@----------------------------------------------------------------------------
-IO_R:			;@ I/O read		0x4000-0x4FFF
+YieArIO_R:					;@ I/O read		0x4000-0x4FFF
 ;@----------------------------------------------------------------------------
 	tst addy,#0x1000
 	bne mem6809R2
@@ -155,7 +155,7 @@ IO_R:			;@ I/O read		0x4000-0x4FFF
 	.long Input3_R				;@ 0x4E03
 
 ;@----------------------------------------------------------------------------
-IO_W:			;@ I/O write	0x4000-0x4FFF
+YieArIO_W:					;@ I/O write	0x4000-0x4FFF
 ;@----------------------------------------------------------------------------
 	tst addy,#0x1000
 	bne ram6809W

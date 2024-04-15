@@ -102,52 +102,7 @@ loadCart: 		;@ Called from C:  r0=rom number, r1=emuflags
 	add r0,r0,#0x20
 	str r0,vlmBase				;@ VLM speech data
 
-	ldr r4,=MEMMAPTBL_
-	ldr r5,=RDMEMTBL_
-	ldr r6,=WRMEMTBL_
-	ldr r7,=mem6809R0
-	ldr r8,=rom_W
-	mov r0,#0
-tbLoop1:
-	add r1,r3,r0,lsl#13
-	str r1,[r4,r0,lsl#2]
-	str r7,[r5,r0,lsl#2]
-	str r8,[r6,r0,lsl#2]
-	add r0,r0,#1
-	cmp r0,#0x04
-	bne tbLoop1
-
-	ldr r7,=empty_R
-	ldr r8,=empty_W
-tbLoop2:
-	str r3,[r4,r0,lsl#2]
-	str r7,[r5,r0,lsl#2]
-	str r8,[r6,r0,lsl#2]
-	add r0,r0,#1
-	cmp r0,#0x100
-	bne tbLoop2
-
-	ldr r7,=VLM_R
-	ldr r8,=VLM_W
-	mov r0,#0xF9				;@ empty
-	str r7,[r5,r0,lsl#2]		;@ RdMem
-	str r8,[r6,r0,lsl#2]		;@ WrMem
-
-	ldr r7,=VLM_R
-	ldr r8,=empty_W
-	mov r0,#0xFE				;@ Graphic
-	str r1,[r4,r0,lsl#2]		;@ MemMap
-	str r7,[r5,r0,lsl#2]		;@ RdMem
-	str r8,[r6,r0,lsl#2]		;@ WrMem
-
-	ldr r1,=emuRAM-0x1000
-	ldr r7,=IO_R
-	ldr r8,=IO_W
-	mov r0,#0xFF				;@ IO, gfx
-	str r1,[r4,r0,lsl#2]		;@ MemMap
-	str r7,[r5,r0,lsl#2]		;@ RdMem
-	str r8,[r6,r0,lsl#2]		;@ WrMem
-
+	bl doCpuMappingYieAr
 
 	bl gfxReset
 	bl ioReset
@@ -159,49 +114,53 @@ tbLoop2:
 
 
 ;@----------------------------------------------------------------------------
-//	.section itcm
+doCpuMappingYieAr:
 ;@----------------------------------------------------------------------------
-
+	adr r2,yieArMapping
+	b do6809MainCpuMapping
 ;@----------------------------------------------------------------------------
-m6809Mapper:		;@ Rom paging..
+yieArMapping:						;@ Yie Ar Kung-Fu
+	.long emptySpace, VLM_R, empty_W							;@ IO
+	.long emptySpace, empty_R, empty_W							;@ Empty
+	.long emuRAM-0x1000, YieArIO_R, YieArIO_W					;@ Graphic
+	.long emptySpace, empty_R, empty_W							;@ Empty
+	.long 0, mem6809R4, rom_W									;@ ROM
+	.long 1, mem6809R5, rom_W									;@ ROM
+	.long 2, mem6809R6, rom_W									;@ ROM
+	.long 3, mem6809R7, rom_W									;@ ROM
 ;@----------------------------------------------------------------------------
-	ands r0,r0,#0xFF			;@ Safety
-	bxeq lr
-	stmfd sp!,{r3-r8,lr}
-	ldr r5,=MEMMAPTBL_
-	ldr r2,[r5,r1,lsl#2]!
-	ldr r3,[r5,#-1024]			;@ RDMEMTBL_
-	ldr r4,[r5,#-2048]			;@ WRMEMTBL_
+do6809MainCpuMapping:
+;@----------------------------------------------------------------------------
+	ldr r0,=m6809CPU0
+	ldr r1,=mainCpu
+	ldr r1,[r1]
+;@----------------------------------------------------------------------------
+m6809Mapper:		;@ Rom paging.. r0=cpuptr, r1=romBase, r2=mapping table.
+;@----------------------------------------------------------------------------
+	stmfd sp!,{r4-r8,lr}
 
-	mov r5,#0
-	cmp r1,#0xF9
-	movmi r5,#12
+	add r7,r0,#m6809MemTbl
+	add r8,r0,#m6809ReadTbl
+	add lr,r0,#m6809WriteTbl
 
-	add r6,m6809ptr,#m6809ReadTbl
-	add r7,m6809ptr,#m6809WriteTbl
-	add r8,m6809ptr,#m6809MemTbl
-	b m6809MemAps
-m6809MemApl:
-	add r6,r6,#4
-	add r7,r7,#4
-	add r8,r8,#4
-m6809MemAp2:
-	add r3,r3,r5
-	sub r2,r2,#0x2000
-m6809MemAps:
-	movs r0,r0,lsr#1
-	bcc m6809MemApl				;@ C=0
-	strcs r3,[r6],#4			;@ readmem_tbl
-	strcs r4,[r7],#4			;@ writemem_tb
-	strcs r2,[r8],#4			;@ memmap_tbl
-	bne m6809MemAp2
+	mov r6,#8
+m6809M2Loop:
+	ldmia r2!,{r3-r5}
+	cmp r3,#0x100
+	addmi r3,r1,r3,lsl#13
+	rsb r0,r6,#8
+	sub r3,r3,r0,lsl#13
 
+	str r3,[r7],#4
+	str r4,[r8],#4
+	str r5,[lr],#4
+	subs r6,r6,#1
+	bne m6809M2Loop
 ;@------------------------------------------
 m6809Flush:		;@ Update cpu_pc & lastbank
 ;@------------------------------------------
 	reEncodePC
-
-	ldmfd sp!,{r3-r8,lr}
+	ldmfd sp!,{r4-r8,lr}
 	bx lr
 
 
@@ -219,6 +178,7 @@ cartFlags:
 	.space 3
 
 romStart:
+mainCpu:
 	.long 0
 vromBase0:
 	.long 0
@@ -238,6 +198,8 @@ MEMMAPTBL_:
 	.space 256*4
 testState:
 	.space 0x1004+0x34+0x28
+emptySpace:
+	.space 0x2000
 
 ;@----------------------------------------------------------------------------
 	.end
