@@ -11,17 +11,15 @@
 #include "Main.h"
 #include "Shared/EmuMenu.h"
 #include "Gui.h"
-#include "YieAr.h"
 #include "Cart.h"
 #include "Gfx.h"
 #include "io.h"
+#include "YieAr.h"
 
 static const char *const folderName = "acds";
 static const char *const settingName = "settings.cfg";
 
 ConfigData cfg;
-
-#define GAMECOUNT (2)
 
 //---------------------------------------------------------------------------------
 int loadSettings() {

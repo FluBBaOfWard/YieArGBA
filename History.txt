@@ -2,9 +2,10 @@ YieArGBA revision history
 -=-=-=-=-=-=-=-=-=-=-=-=-
 
 
-V0.1.6 - 2024-04-15 (FluBBa)
+V0.1.6 - 2026-01-05 (FluBBa)
 	Added new debug menu.
 	Better menu traversing.
+	Updated cpu core.
 
 V0.1.5 - 2021-03-17 (FluBBa)
 	Added load/save state.

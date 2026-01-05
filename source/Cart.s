@@ -62,7 +62,7 @@ ROM_Space:
 // VLM data
 	.incbin "yiear/407_c09.8b"
 */
-	.section .ewram,"ax"
+	.section .ewram, "ax", %progbits
 	.align 2
 ;@----------------------------------------------------------------------------
 machineInit: 	;@ Called from C
@@ -189,7 +189,12 @@ promBase:
 vlmBase:
 	.long 0
 
-	.section .sbss
+#ifdef GBA
+	.section .sbss				;@ This is EWRAM on GBA with devkitARM
+#else
+	.section .bss
+#endif
+	.align 2
 WRMEMTBL_:
 	.space 256*4
 RDMEMTBL_:

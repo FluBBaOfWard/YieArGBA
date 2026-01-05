@@ -5,8 +5,6 @@
 extern "C" {
 #endif
 
-extern u8 gGammaValue;
-
 void setupGUI(void);
 void enterGUI(void);
 void exitGUI(void);
@@ -16,33 +14,9 @@ void nullUIDebug(int key);
 void resetGame(void);
 
 void uiNullNormal(void);
-void uiMainMenu(void);
-void uiFile(void);
-void uiSettings(void);
-void uiController(void);
-void uiDisplay(void);
-void uiDipswitches(void);
 void uiAbout(void);
+void uiDipswitches(void);
 void uiLoadGame(void);
-
-void controllerSet(void);
-void swapABSet(void);
-
-void scalingSet(void);
-void gammaSet(void);
-void bgrLayerSet(void);
-void sprLayerSet(void);
-
-void coinASet(void);
-void coinBSet(void);
-void bonusSet(void);
-void demoSet(void);
-void livesSet(void);
-void cabinetSet(void);
-void difficultSet(void);
-void uprightSet(void);
-void flipSet(void);
-void serviceSet(void);
 
 #ifdef __cplusplus
 } // extern "C"

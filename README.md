@@ -79,6 +79,8 @@ More MAME people + Maxim for the SN76496 info.
 
 Fredrik Ahlström
 
-X/Twitter @TheRealFluBBa
+<https://bsky.app/profile/therealflubba.bsky.social>
 
 <https://www.github.com/FluBBaOfWard>
+
+X/Twitter @TheRealFluBBa

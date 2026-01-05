@@ -307,25 +307,23 @@ yieAr_0W:					;@ I/O write  (0x4000)
 yieAr_0:
 	.space yieArSize
 ;@----------------------------------------------------------------------------
-	.section .ewram, "ax"
 
-
+#ifdef GBA
+	.section .sbss				;@ This is EWRAM on GBA with devkitARM
+#else
+	.section .bss
+#endif
+	.align 2
 gfxState:
 adjustBlend:
 	.long 0
 windowTop:
-	.long 0,0,0,0		;@ L/R scrolling in unscaled mode
+	.long 0,0,0,0				;@ L/R scrolling in unscaled mode
 
 	.byte 0
 	.byte 0
 	.byte 0,0
 
-#ifdef GBA
-	.section .sbss				;@ For the GBA
-#else
-	.section .bss
-#endif
-	.align 2
 CHR_DECODE:
 	.space 0x400
 OAM_BUFFER1:

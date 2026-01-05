@@ -74,7 +74,7 @@ konamiFrameLoop:
 	b konamiEnd
 ;@----------------------------------------------------------------------------
 
-	.section .ewram,"ax"
+	.section .ewram, "ax", %progbits
 konamiEnd:
 	add r0,m6809ptr,#m6809Regs
 	stmia r0,{m6809f-m6809pc,m6809sp}	;@ Save M6809 state
@@ -173,9 +173,11 @@ cpuReset:		;@ Called by loadCart/resetGame
 	bx lr
 ;@----------------------------------------------------------------------------
 #ifdef NDS
-	.section .dtcm, "ax", %progbits		;@ For the NDS
+	.section .sbss				;@ This is DTCM on NDS with devkitARM
 #elif GBA
-	.section .iwram, "ax", %progbits	;@ For the GBA
+	.section .bss				;@ This is IWRAM on GBA with devkitARM
+#else
+	.section .bss
 #endif
 	.align 2
 ;@----------------------------------------------------------------------------

@@ -23,7 +23,7 @@
 	.syntax unified
 	.arm
 
-	.section .ewram,"ax"
+	.section .ewram, "ax", %progbits
 	.align 2
 ;@----------------------------------------------------------------------------
 soundInit:
@@ -183,7 +183,11 @@ vlmBusy:
 	.byte 0
 	.space 2
 
-	.section .sbss
+#ifdef GBA
+	.section .sbss				;@ This is EWRAM on GBA with devkitARM
+#else
+	.section .bss
+#endif
 	.align 2
 SN76496_0:
 	.space snSize
