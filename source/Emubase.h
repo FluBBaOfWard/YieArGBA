@@ -1,6 +1,8 @@
 #ifndef EMUBASE
 #define EMUBASE
 
+#define BTAID 0x1A415442		// "YAA",0x1A - Yie Ar Arcade
+
 typedef struct {
 	const u32 identifier;
 	const u32 filesize;

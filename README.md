@@ -23,7 +23,8 @@ back a step.
 
 ### Controller
 
-* Autofire: Select if you want autofire.
+* B Autofire: Select if you want autofire on button B.
+* A Autofire: Select if you want autofire on button A.
 * Controller: 2P start a 2 player game.
 * Swap A/B: Swap which GBA button is mapped to which arcade button.
 
@@ -33,8 +34,10 @@ back a step.
   * Unscaled mode:  L & R buttons scroll the screen up and down.
 * Scaling: Here you can select if you want flicker or barebones lineskip.
 * Gamma: Lets you change the gamma ("brightness").
-* Disable Background: Turn on/off background rendering.
-* Disable Sprites: Turn on/off sprite rendering.
+
+### Dipswitches
+
+Lot of settings for the actual arcade game, difficulty/lives etc.
 
 ### Settings
 
@@ -43,18 +46,23 @@ back a step.
   * 200%: Game runs at double speed.
   * Max: Game runs at 4 times normal speed (might change in the future).
   * 50%: Game runs at half speed.
-* Autoload State: Toggle Savestate autoloading.
-  * Automagically load the savestate associated with the selected game.
+* Autoload State: Toggle Savestate autoloading. Automagically load the
+ savestate associated with the selected game.
 * Autosave Settings: Saves changed settings every time you leave menu.
 * Autopause Game: Toggle if the game should pause when opening the menu.
-* Debug Output: Show an FPS meter for now.
+* Overclock EWRAM: Changes the waitstates on EWRAM between 2 and 1, might
+ damage your GBA and uses more power, around 10% speedgain. Doesn't work on
+ Gameboy Micro. Use at your own risk!
 * Autosleep: Choose between 5 min, 10 min, 30 min & off.
 
-### Dipswitches
+### Debug
 
-Lot of settings for the actual arcade game, difficulty/lives etc.
+* Debug Output: Show FPS and logged text.
+* Disable Background: Turn on/off background rendering.
+* Disable Sprites: Turn on/off sprite rendering.
+* Step Frame: Emulate one frame.
 
-### Help
+### About
 
 Some dumb info about the game and emulator...
 

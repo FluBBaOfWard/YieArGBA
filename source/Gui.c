@@ -14,7 +14,7 @@
 #include "SN76496/Version.h"
 #include "YieArVideo/Version.h"
 
-#define EMUVERSION "V0.1.6 2026-01-05"
+#define EMUVERSION "V0.1.6 2026-01-17"
 
 static void scalingSet(void);
 static const char *getScalingText(void);
@@ -148,7 +148,6 @@ const char *const singleTxt[] = {"Single","Dual"};
 
 /// This is called at the start of the emulator
 void setupGUI() {
-	emuSettings = AUTOPAUSE_EMULATION;
 //	keysSetRepeat(25, 4);	// Delay, repeat.
 	menu1.itemCount = ARRSIZE(mainItems) - (enableExit?0:1);
 	closeMenu();
@@ -261,75 +260,75 @@ const char *getSprLayerText() {
 
 /// Number of coins for credits
 void coinASet() {
-	int i = (g_dipSwitch0+1) & 0xF;
-	g_dipSwitch0 = (g_dipSwitch0 & ~0xF) | i;
+	int i = (gDipSwitch0+1) & 0xF;
+	gDipSwitch0 = (gDipSwitch0 & ~0xF) | i;
 }
 const char *getCoinAText() {
-	return coinTxt[g_dipSwitch0 & 0xF];
+	return coinTxt[gDipSwitch0 & 0xF];
 }
 /// Number of coins for credits
 void coinBSet() {
-	int i = (g_dipSwitch0+0x10) & 0xF0;
-	g_dipSwitch0 = (g_dipSwitch0 & ~0xF0) | i;
+	int i = (gDipSwitch0+0x10) & 0xF0;
+	gDipSwitch0 = (gDipSwitch0 & ~0xF0) | i;
 }
 const char *getCoinBText() {
-	return coinTxt[(g_dipSwitch0>>4) & 0xF];
+	return coinTxt[(gDipSwitch0>>4) & 0xF];
 }
 /// At which score you get bonus lifes
 void bonusSet() {
-	g_dipSwitch1 ^= 0x08;
+	gDipSwitch1 ^= 0x08;
 }
 const char *getBonusText() {
-	return bonusTxt[(g_dipSwitch1>>3)&1];
+	return bonusTxt[(gDipSwitch1>>3)&1];
 }
 /// Demo sound on/off
 void demoSet() {
-	g_dipSwitch1 ^= 0x80;
+	gDipSwitch1 ^= 0x80;
 }
 const char *getDemoText() {
-	return autoTxt[(g_dipSwitch1>>7)&1];
+	return autoTxt[(gDipSwitch1>>7)&1];
 }
 /// Number of lifes to start with
 void livesSet() {
-	int i = (g_dipSwitch1+1) & 3;
-	g_dipSwitch1 = (g_dipSwitch1 & ~3) | i;
+	int i = (gDipSwitch1+1) & 3;
+	gDipSwitch1 = (gDipSwitch1 & ~3) | i;
 }
 const char *getLivesText() {
-	return livesTxt[g_dipSwitch1 & 3];
+	return livesTxt[gDipSwitch1 & 3];
 }
 /// Cocktail/upright
 void cabinetSet() {
-	g_dipSwitch1 ^= 0x04;
+	gDipSwitch1 ^= 0x04;
 }
 const char *getCabinetText() {
-	return cabTxt[(g_dipSwitch1>>2)&1];
+	return cabTxt[(gDipSwitch1>>2)&1];
 }
 /// Game difficulty
 void difficultSet() {
-	int i = (g_dipSwitch1+0x10) & 0x30;
-	g_dipSwitch1 = (g_dipSwitch1 & ~0x30) | i;
+	int i = (gDipSwitch1+0x10) & 0x30;
+	gDipSwitch1 = (gDipSwitch1 & ~0x30) | i;
 }
 const char *getDifficultText() {
-	return diffTxt[(g_dipSwitch1>>4)&3];
+	return diffTxt[(gDipSwitch1>>4)&3];
 }
 /// Dual or single controlls for upright set
 void uprightSet() {
-	g_dipSwitch2 ^= 0x02;
+	gDipSwitch2 ^= 0x02;
 }
 const char *getUprightText() {
-	return singleTxt[(g_dipSwitch2>>1)&1];
+	return singleTxt[(gDipSwitch2>>1)&1];
 }
 /// Flip screen
 void flipSet() {
-	g_dipSwitch2 ^= 0x01;
+	gDipSwitch2 ^= 0x01;
 }
 const char *getFlipText() {
-	return autoTxt[g_dipSwitch2&1];
+	return autoTxt[gDipSwitch2&1];
 }
 /// Test/Service mode
 void serviceSet() {
-	g_dipSwitch2 ^= 0x04;
+	gDipSwitch2 ^= 0x04;
 }
 const char *getServiceText() {
-	return autoTxt[(g_dipSwitch2>>2)&1];
+	return autoTxt[(gDipSwitch2>>2)&1];
 }
